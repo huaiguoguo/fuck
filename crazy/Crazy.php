@@ -12,7 +12,7 @@ require(__DIR__ . '/CrazyBase.php');
 
 class Crazy extends crazy\CrazyBase
 {
-}
 
+}
 
 Crazy::init();

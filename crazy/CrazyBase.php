@@ -9,6 +9,9 @@
 namespace crazy;
 
 
+defined("CRAZY_PATH") or define("CRAZY_PATH", __DIR__);
+
+
 class CrazyBase
 {
     protected $_config = array();
@@ -26,19 +29,19 @@ class CrazyBase
 
     public function run()
     {
-        $this->initConfig();
+
     }
 
     public static function initConfig()
     {
-        echo "initconfig";
+        echo "初始化配置文件";
     }
 
-    public static function autoload($classNmae, $path="")
+    public static function autoload($classNmae)
     {
-        if (isset(self::$_coreMap[$classNmae])){
+        if (isset(self::$_coreMap[$classNmae])) {
             include self::$_coreMap[$classNmae];
-        }else{
+        } else {
             throw new \Exception("文件不存在");
         }
     }
@@ -47,7 +50,7 @@ class CrazyBase
     {
         function_exists('date_default_timezone_set') && date_default_timezone_set('Etc/GMT+0');
         if (function_exists('spl_autoload_register')) {
-            spl_autoload_register(['Crazy','autoload'], true, true);
+            spl_autoload_register(['Crazy', 'autoload'], true, true);
         }
 
         self::_loadCore();
@@ -56,7 +59,9 @@ class CrazyBase
     public static function _loadCore()
     {
         self::$_coreMap = [
-
+            'crazy\Test' => CRAZY_PATH.'/Test.php'
         ];
     }
+
+
 }
